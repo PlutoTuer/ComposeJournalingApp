@@ -17,7 +17,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -25,6 +28,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -70,6 +74,12 @@ class MainActivity : ComponentActivity() {
                         }
                         FullAddItemsToDaytime()
                         Spacer(modifier = Modifier.weight(0.1F))
+                        DaytimeTable()
+                        Spacer(modifier = Modifier.weight(0.1F))
+                        DaytimeTable()
+                        Spacer(modifier = Modifier.weight(0.1F))
+                        DaytimeTable()
+                        Spacer(modifier = Modifier.weight(0.1F))
                         FullQuiz()
                         AddJournalEntryButton()
                     }
@@ -78,30 +88,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Composable
-fun AddedActivity() {
-    Box(
-        modifier = Modifier
-            .wrapContentWidth()
-            .wrapContentHeight()
-            .clip(shape = RoundedCornerShape(28.dp))
-            .background(Color.Gray)
-    ){
-        Row (verticalAlignment = Alignment.CenterVertically){
-            Text(text = "woaaaaaaaaark",
-            modifier = Modifier.padding(start = 10.dp))
-            Icon(imageVector = Icons.Filled.Close, contentDescription = "Cross Icon" )
-        }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewAddedActivity() {
-    AddedActivity()
-}
-
 
 
 
