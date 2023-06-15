@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AddedActivity() {
+fun AddedActivity(text:String) {
     Box(
         modifier = Modifier
             .padding(4.dp)
@@ -41,7 +41,7 @@ fun AddedActivity() {
         )
         {
             Text(
-                text = "work",
+                text = text,
                 modifier = Modifier.padding(start = 10.dp),
                 fontSize = 22.sp
             )
@@ -56,5 +56,5 @@ fun AddedActivity() {
 @Preview
 @Composable
 fun PreviewAddedActivity() {
-    AddedActivity()
+    AddedActivity("work")
 }

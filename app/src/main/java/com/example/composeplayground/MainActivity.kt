@@ -75,10 +75,13 @@ class MainActivity : ComponentActivity() {
                         }
                         FullAddItemsToDaytime()
                         Spacer(modifier = Modifier.weight(0.1F))
+                        //Morning
                         DaytimeTable()
                         Spacer(modifier = Modifier.weight(0.1F))
+                        //Mid-Day
                         DaytimeTable()
                         Spacer(modifier = Modifier.weight(0.1F))
+                        //Evening
                         DaytimeTable()
                         Spacer(modifier = Modifier.weight(0.1F))
                         FullQuiz()
