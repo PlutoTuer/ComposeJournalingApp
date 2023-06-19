@@ -14,21 +14,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
 @Composable
-fun addActivityButton():Boolean {
-    var isButtonPressed by remember {
-        mutableStateOf(false)
-    }
-    var tempIsButtonPressed by remember {
-        mutableStateOf(false)
-    }
+fun AddActivityButton(onClick: () -> Unit){
     Button(
-        onClick = {
-            tempIsButtonPressed = true
-            isButtonPressed = tempIsButtonPressed
-            tempIsButtonPressed = false
-        },
+        onClick = onClick,
         modifier = Modifier.padding(4.dp)
     )
     {
@@ -37,17 +26,9 @@ fun addActivityButton():Boolean {
             contentDescription = "Add Icon"
         )
     }
-    LaunchedEffect(isButtonPressed) {
-        println("FROM AddActivityButton.kt; " +
-                "IS THE BUTTON PRESSED: $isButtonPressed")
-    }
-    //println("FROM AddActivityButton.kt; " +
-    //        "IS THE BUTTON PRESSED: $isButtonPressed")
-    return isButtonPressed
 }
-
 @Preview
 @Composable
 fun PreviewAddActitvityButton() {
-    addActivityButton()
+    AddActivityButton({})
 }

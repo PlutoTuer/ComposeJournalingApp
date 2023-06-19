@@ -32,6 +32,12 @@ fun DaytimeTable() {
     if (itemText != null){
         itemsList = itemsList + itemText
     }
+
+    println("###################")
+    println("List of items to be added to the rows:")
+    println("$itemsList")
+    println("###################")
+
     Column(modifier = Modifier
         .padding(start = 12.dp, end = 12.dp)
         .fillMaxWidth()

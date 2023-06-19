@@ -22,8 +22,27 @@ fun FullAddItemsToDaytime() {
     var userInput by remember {
         mutableStateOf("")
     }
-    var isButtonPressed by remember {
-        mutableStateOf(false)
+    val isButtonPressed: () -> Unit = {
+        val rowList = listOf<Row>(row1, row2, row3)
+        val hasChecked = rowList.any { rowIndex -> rowIndex.isChecked }
+
+        val filteredRows = rowList.filter { it.isChecked }
+        val daytimeRowList = mutableListOf<Int>()
+
+        for (obj in filteredRows){
+            daytimeRowList.add(obj.daytime)
+        }
+        println("###################")
+        println("List of row indices that are checked:")
+        println("$daytimeRowList")
+        println("###################")
+
+        if (hasChecked){
+            item.daytimeRowList = daytimeRowList
+            item.text = userInput
+        }
+        println("Objects to be added:")
+        println(item.toString())
     }
     Box(modifier = Modifier.padding(top = 10.dp)){
 
@@ -40,31 +59,13 @@ fun FullAddItemsToDaytime() {
 
                 Box(modifier = Modifier.align(Alignment.CenterVertically)){
 
-                    isButtonPressed = addActivityButton()
+                    AddActivityButton(isButtonPressed)
 
-                    LaunchedEffect(isButtonPressed) {
-                        println("FROM FullAddItemsToDaytime.kt; IS THE BUTTON PRESSED: $isButtonPressed")
-                    }
                 }
                 //if (isButtonPressed){textValue = ""}
             }
             FullCheckForDaytimeRow()
 
-            val rowList = listOf<Row>(row1, row2, row3)
-            val hasChecked = rowList.any { rowIndex -> rowIndex.isChecked }
-
-            val filteredRows = rowList.filter { it.isChecked }
-            val daytimeRowList = mutableListOf<Int>()
-
-            for (obj in filteredRows){
-                daytimeRowList.add(obj.daytime)
-            }
-            if (isButtonPressed && hasChecked){
-                item.daytimeRowList = daytimeRowList
-                item.text = userInput
-            }
-            println("Objects to be added:")
-            println(item.toString())
         }
     }
 }
