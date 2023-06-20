@@ -19,19 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DaytimeTable() {
-    /*val yourList =
-        listOf(
-            "a", "b", "c","a", "b", "c","a", "b", "c","a", "b", "c","a", "b", "c","a", "b", "c","a", "b", "c",
-        )*/
-    var itemsList:List<String> by remember {
-        mutableStateOf(listOf())
-    }
-    val itemText = item.text
-
-    if (itemText != null){
-        itemsList = itemsList + itemText
-    }
+fun DaytimeTable(itemsList:List<String>) {
 
     println("###################")
     println("List of items to be added to the rows:")
@@ -45,8 +33,7 @@ fun DaytimeTable() {
         .background(Color(253, 164, 104, 255))
     )
     {
-        LazyRow()
-        {
+        LazyRow {
 
             items(itemsList.chunked(2)){ chunkedItems ->
 
@@ -64,5 +51,5 @@ fun DaytimeTable() {
 @Preview
 @Composable
 fun PreviewDaytimeTable() {
-    DaytimeTable()
+    DaytimeTable(listOf("a"))
 }

@@ -18,32 +18,8 @@ import androidx.compose.ui.unit.dp
 
 val item = FullItem()
 @Composable
-fun FullAddItemsToDaytime() {
-    var userInput by remember {
-        mutableStateOf("")
-    }
-    val isButtonPressed: () -> Unit = {
-        val rowList = listOf<Row>(row1, row2, row3)
-        val hasChecked = rowList.any { rowIndex -> rowIndex.isChecked }
+fun FullAddItemsToDaytime(isButtonPressed: () -> Unit, userInput:String, onValueChange: (String) -> Unit) {
 
-        val filteredRows = rowList.filter { it.isChecked }
-        val daytimeRowList = mutableListOf<Int>()
-
-        for (obj in filteredRows){
-            daytimeRowList.add(obj.daytime)
-        }
-        println("###################")
-        println("List of row indices that are checked:")
-        println("$daytimeRowList")
-        println("###################")
-
-        if (hasChecked){
-            item.daytimeRowList = daytimeRowList
-            item.text = userInput
-        }
-        println("Objects to be added:")
-        println(item.toString())
-    }
     Box(modifier = Modifier.padding(top = 10.dp)){
 
         BoxWithShadow(160, 166,200,200,255)
@@ -52,7 +28,7 @@ fun FullAddItemsToDaytime() {
 
             Row {
 
-                userInput = addItemsTextField()
+                AddItemsTextField(onValueChange)
 
                 println("FROM FullAddItemsToDaytime.kt; " +
                         "USER INPUT: $userInput")
@@ -73,5 +49,5 @@ fun FullAddItemsToDaytime() {
 @Preview
 @Composable
 fun PreviewFullAddItemsToDaytime() {
-    FullAddItemsToDaytime()
+    FullAddItemsToDaytime({}, "test",{})
 }

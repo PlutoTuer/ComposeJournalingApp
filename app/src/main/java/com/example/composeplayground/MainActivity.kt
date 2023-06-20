@@ -70,19 +70,53 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     Column {
+                        var itemsList:List<String> by remember {
+                            mutableStateOf(listOf())
+                        }
+                        var userInput by remember {
+                            mutableStateOf("")
+                        }
+                        val onValueChange: (String) -> Unit = {input ->
+                            userInput = input
+                        }
+                        val isButtonPressed: () -> Unit = {
+                            val rowList = listOf<Row>(row1, row2, row3)
+                            val hasChecked = rowList.any { rowIndex -> rowIndex.isChecked }
+
+                            val filteredRows = rowList.filter { it.isChecked }
+                            val daytimeRowList = mutableListOf<Int>()
+
+                            for (obj in filteredRows){
+                                daytimeRowList.add(obj.daytime)
+                            }
+                            println("###################")
+                            println("List of row indices that are checked:")
+                            println("$daytimeRowList")
+                            println("###################")
+
+                            if (hasChecked){
+                                item.daytimeRowList = daytimeRowList
+                                item.text = userInput
+                                itemsList = itemsList + userInput
+                            }
+                            println("Objects to be added:")
+                            println(item.toString())
+                        }
                         Box() {
                             FullTitleCard()
                         }
-                        FullAddItemsToDaytime()
+                        FullAddItemsToDaytime(isButtonPressed, userInput, onValueChange)
                         Spacer(modifier = Modifier.weight(0.1F))
+
+
+                        DaytimeTable(itemsList)
                         //Morning
-                        DaytimeTable()
                         Spacer(modifier = Modifier.weight(0.1F))
                         //Mid-Day
-                        DaytimeTable()
+                        DaytimeTable(itemsList)
                         Spacer(modifier = Modifier.weight(0.1F))
                         //Evening
-                        DaytimeTable()
+                        DaytimeTable(itemsList)
                         Spacer(modifier = Modifier.weight(0.1F))
                         FullQuiz()
                         AddJournalEntryButton()

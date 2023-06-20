@@ -28,19 +28,17 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun addItemsTextField():String {
+fun AddItemsTextField(onValueChange: (String) -> Unit) {
     var userInput by remember {
-        mutableStateOf("")
-    }
-    var tempInput:String by remember {
         mutableStateOf("")
     }
     Row() {
         TextField(
             label = { Text("Input activities") },
             value = userInput,
-            onValueChange ={inputText ->
-                userInput = inputText
+            onValueChange = { newValue ->
+                userInput = newValue
+                onValueChange.invoke(newValue)
             },
             modifier = Modifier
                 .padding(16.dp)
@@ -49,14 +47,11 @@ fun addItemsTextField():String {
                 .clip(RoundedCornerShape(8.dp))
         )
     }
-    println("FROM AddItemsTextField.kt; " +
-            "USER INPUT: $userInput")
-    return userInput
 }
 
 @Preview
 @Composable
 fun PreviewAddItemsTextField() {
-    addItemsTextField()
+    AddItemsTextField({"test"})
 }
 
