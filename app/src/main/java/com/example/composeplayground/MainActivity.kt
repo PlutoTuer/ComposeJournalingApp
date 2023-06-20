@@ -70,7 +70,13 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     Column {
-                        var itemsList:List<String> by remember {
+                        var itemsListMorning:List<String> by remember {
+                            mutableStateOf(listOf())
+                        }
+                        var itemsListMidDay:List<String> by remember {
+                            mutableStateOf(listOf())
+                        }
+                        var itemsListEvening:List<String> by remember {
                             mutableStateOf(listOf())
                         }
                         var userInput by remember {
@@ -97,7 +103,18 @@ class MainActivity : ComponentActivity() {
                             if (hasChecked){
                                 item.daytimeRowList = daytimeRowList
                                 item.text = userInput
-                                itemsList = itemsList + userInput
+
+                                if (daytimeRowList.contains(0)){
+                                    itemsListMorning = itemsListMorning + userInput
+                                }
+                                if (daytimeRowList.contains(1)){
+                                    itemsListMidDay = itemsListMidDay + userInput
+                                }
+                                if (daytimeRowList.contains(2)){
+                                    itemsListEvening = itemsListEvening + userInput
+                                }
+
+
                             }
                             println("Objects to be added:")
                             println(item.toString())
@@ -109,16 +126,23 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier = Modifier.weight(0.1F))
 
 
-                        DaytimeTable(itemsList)
+                        DaytimeTable(itemsListMorning)
                         //Morning
                         Spacer(modifier = Modifier.weight(0.1F))
                         //Mid-Day
-                        DaytimeTable(itemsList)
+                        DaytimeTable(itemsListMidDay)
                         Spacer(modifier = Modifier.weight(0.1F))
                         //Evening
-                        DaytimeTable(itemsList)
+                        DaytimeTable(itemsListEvening)
                         Spacer(modifier = Modifier.weight(0.1F))
-                        FullQuiz()
+
+                        //TODO: alles unter hier
+                        val onClick: () -> Unit = {
+
+                        }
+
+                        FullQuiz(onClick,false, true)
+
                         AddJournalEntryButton()
                     }
                 }

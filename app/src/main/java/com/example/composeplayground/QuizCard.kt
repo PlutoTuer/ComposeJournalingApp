@@ -26,29 +26,36 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun RadioButton() {
-    var isButtonClicked by remember { mutableStateOf(false) }
+fun RadioButton(
+    onClick: () -> Unit,
+    selected:Boolean,
+    enabled:Boolean
+) {
     androidx.compose.material3.RadioButton(
-        selected = isButtonClicked,
-        onClick = { isButtonClicked = !isButtonClicked })
+        selected = selected,
+        onClick = onClick,
+        enabled = enabled
+    )
 }
 
 @Preview
 @Composable
 fun PreviewRadioButton() {
-    RadioButton()
+    RadioButton({}, false, true)
 }
 
 
 @Composable
-fun QuizCard() {
+fun QuizCard(
+    emoji:String,
+    mood:String
+) {
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(80.dp)
         .padding(16.dp)
         .shadow(
             elevation = 10.dp
-
         ),
         shape = RoundedCornerShape(8.dp)
     ){
@@ -59,12 +66,12 @@ fun QuizCard() {
             contentAlignment = Alignment.CenterStart
         ){
             Text(
-                text = "\uD83D\uDE42",
+                text = emoji,
                 modifier = Modifier
                     .scale(1.5f)
             )
             Text(
-                text = "Neutral",
+                text = mood,
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp
@@ -79,19 +86,26 @@ fun QuizCard() {
 @Preview
 @Composable
 fun PreviewQuizCard() {
-    QuizCard()
+    QuizCard("\uD83D\uDE10", "neutral")
 }
 
 
 @Composable
-fun QuizSheet() {
+fun QuizSheet(
+    emoji:String,
+    mood:String,
+    onClick: () -> Unit,
+    selected: Boolean,
+    enabled: Boolean
+) {
+
     Box {
-        QuizCard()
+        QuizCard(emoji,mood)
         Box(modifier = Modifier
             .align(Alignment.CenterEnd)
             .padding(end = 10.dp)
         ){
-            RadioButton()
+            RadioButton(onClick, selected, enabled)
         }
     }
 }
@@ -99,18 +113,22 @@ fun QuizSheet() {
 @Preview
 @Composable
 fun PreviewQuizSheet() {
-    QuizSheet()
+    QuizSheet("\uD83D\uDE10", "neutral", {}, false, true)
 }
 
-@Preview
+
 @Composable
-fun FullQuiz() {
+fun FullQuiz(
+    onClick: () -> Unit,
+    selected: Boolean,
+    enabled: Boolean
+) {
     Box(/*modifier = Modifier.padding(bottom = 20.dp)*/){//TODO Vielleicht noch das padding ändern
         BoxWithShadow(250,192,247,172,255)
         Column() {
-            QuizSheet()
-            QuizSheet()
-            QuizSheet()
+            QuizSheet("\uD83D\uDE41", "sad", onClick, selected,enabled)
+            QuizSheet("\uD83D\uDE10", "neutral",onClick, selected,enabled)
+            QuizSheet("\uD83D\uDE42", "happy",onClick, selected, enabled)
         }
     }
 }
