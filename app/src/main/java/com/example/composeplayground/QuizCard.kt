@@ -1,5 +1,6 @@
 package com.example.composeplayground
 
+import android.widget.RadioGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,9 +28,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun RadioButton(
-    onClick: () -> Unit,
-    selected:Boolean,
-    enabled:Boolean
+    selected:Boolean = false,
+    enabled:Boolean = true,
+    onClick: () -> Unit
 ) {
     androidx.compose.material3.RadioButton(
         selected = selected,
@@ -41,7 +42,7 @@ fun RadioButton(
 @Preview
 @Composable
 fun PreviewRadioButton() {
-    RadioButton({}, false, true)
+    RadioButton(selected = true){}
 }
 
 
@@ -105,7 +106,7 @@ fun QuizSheet(
             .align(Alignment.CenterEnd)
             .padding(end = 10.dp)
         ){
-            RadioButton(onClick, selected, enabled)
+            RadioButton{}
         }
     }
 }

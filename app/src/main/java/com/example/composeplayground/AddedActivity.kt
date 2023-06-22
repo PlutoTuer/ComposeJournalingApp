@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AddedActivity(text:String) {
+fun AddedActivity(text:String,onClickIcon: (String)->Unit) {
     Box(
         modifier = Modifier
             .padding(4.dp)
@@ -45,10 +47,16 @@ fun AddedActivity(text:String) {
                 modifier = Modifier.padding(start = 10.dp),
                 fontSize = 22.sp
             )
-            Icon(
-                imageVector = Icons.Filled.Close,
-                contentDescription = "Cross Icon"
-            )
+            IconButton(
+                onClick = {onClickIcon(text)},
+                modifier = Modifier.size(24.dp)
+
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Cross Icon"
+                )
+            }
         }
     }
 }
@@ -56,5 +64,5 @@ fun AddedActivity(text:String) {
 @Preview
 @Composable
 fun PreviewAddedActivity() {
-    AddedActivity("work")
+    AddedActivity("work",{})
 }

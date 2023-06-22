@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DaytimeTable(itemsList:List<String>) {
+fun DaytimeTable(itemsList:List<String>, onRemove: (String, List<String>)->Unit) {
 
     println("###################")
     println("List of items to be added to the rows:")
@@ -40,7 +40,12 @@ fun DaytimeTable(itemsList:List<String>) {
                 Column() {
 
                     for (item in chunkedItems){
-                        AddedActivity(item)
+                        val onClickIcon: (String)->Unit = {text ->
+                            if (text in itemsList){
+                                onRemove(item, itemsList)
+                            }
+                        }
+                        AddedActivity(item,onClickIcon)
                     }
                 }
             }
@@ -51,5 +56,5 @@ fun DaytimeTable(itemsList:List<String>) {
 @Preview
 @Composable
 fun PreviewDaytimeTable() {
-    DaytimeTable(listOf("a"))
+    //DaytimeTable(listOf("a"),{})
 }

@@ -69,6 +69,8 @@ class MainActivity : ComponentActivity() {
             ComposePlaygroundTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+
+
                     Column {
                         var itemsListMorning:List<String> by remember {
                             mutableStateOf(listOf())
@@ -86,6 +88,7 @@ class MainActivity : ComponentActivity() {
                             userInput = input
                         }
                         val isButtonPressed: () -> Unit = {
+
                             val rowList = listOf<Row>(row1, row2, row3)
                             val hasChecked = rowList.any { rowIndex -> rowIndex.isChecked }
 
@@ -119,21 +122,34 @@ class MainActivity : ComponentActivity() {
                             println("Objects to be added:")
                             println(item.toString())
                         }
-                        Box() {
+                        val onRemove: (String, List<String>) -> Unit = {text, list ->
+                            when (list) {
+                                itemsListMorning -> {
+                                    itemsListMorning = itemsListMorning - text
+                                }
+                                itemsListMidDay -> {
+                                    itemsListMidDay = itemsListMidDay - text
+                                }
+                                itemsListEvening -> {
+                                    itemsListEvening = itemsListEvening - text
+                                }
+                            }
+                        }
+                        Box{
                             FullTitleCard()
                         }
                         FullAddItemsToDaytime(isButtonPressed, userInput, onValueChange)
                         Spacer(modifier = Modifier.weight(0.1F))
 
 
-                        DaytimeTable(itemsListMorning)
+                        DaytimeTable(itemsListMorning, onRemove)
                         //Morning
                         Spacer(modifier = Modifier.weight(0.1F))
                         //Mid-Day
-                        DaytimeTable(itemsListMidDay)
+                        DaytimeTable(itemsListMidDay,onRemove)
                         Spacer(modifier = Modifier.weight(0.1F))
                         //Evening
-                        DaytimeTable(itemsListEvening)
+                        DaytimeTable(itemsListEvening, onRemove)
                         Spacer(modifier = Modifier.weight(0.1F))
 
                         //TODO: alles unter hier
