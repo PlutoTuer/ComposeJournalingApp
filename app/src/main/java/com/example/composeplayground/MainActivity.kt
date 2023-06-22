@@ -1,5 +1,6 @@
 package com.example.composeplayground
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -61,8 +62,9 @@ import androidx.compose.ui.window.PopupProperties
 import com.example.composeplayground.ui.theme.ComposePlaygroundTheme
 
 //Journal App
-
+var completedDay = CompletedDay()
 class MainActivity : ComponentActivity() {
+    @SuppressLint("MutableCollectionMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -153,13 +155,31 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier = Modifier.weight(0.1F))
 
                         //TODO: alles unter hier
-                        val onClick: () -> Unit = {
+                        val (selected, setSelected) = remember { mutableStateOf("") }
+
+                        FullQuiz(selected,setSelected)
+                        println("Selected Option : $selected")
+
+                        val onComplete: () -> Unit = {
+                            if (
+                                itemsListMorning.isNotEmpty() &&
+                                itemsListMidDay.isNotEmpty() &&
+                                itemsListEvening.isNotEmpty() &&
+                                selected.isNotEmpty()
+                            ){
+                                println("OnComplete")
+                                completedDay = CompletedDay(
+                                    date = "01-06-23",
+                                    morning = itemsListMorning,
+                                    midDay = itemsListMidDay,
+                                    evening = itemsListEvening,
+                                    mood = selected
+                                )
+                                println(completedDay)
+                            }
 
                         }
-
-                        FullQuiz(onClick,false, true)
-
-                        AddJournalEntryButton()
+                        AddJournalEntryButton(onComplete)
                     }
                 }
             }
@@ -167,5 +187,27 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+fun checkIfEmpty(vararg items:Any?):Boolean{
+
+    var isEmpty = true
+
+    for (i in items){
+        when(i){
+
+            is String -> if (i.isEmpty()) break
+            is Int? -> if (i == null) break
+            is Double? -> if (i == null) break
+            is Boolean? -> if (i == null) break
+            is List<*> -> if (i.size == 0) break
+            is Map<*, *> -> if (i.isEmpty()) break
+            is Set<*> -> if (i.isEmpty()) break
+            is Char -> if (i.isWhitespace()) break
+            else -> isEmpty = false
+
+        }
+    }
+    println(isEmpty)
+    return isEmpty
+}
 
 

@@ -28,28 +28,29 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun RadioButton(
-    selected:Boolean = false,
-    enabled:Boolean = true,
-    onClick: () -> Unit
+    moodOptions: MoodOptions,
+    selected: String,
+    setSelected: (selected: String) -> Unit
 ) {
     androidx.compose.material3.RadioButton(
-        selected = selected,
-        onClick = onClick,
-        enabled = enabled
+        selected = selected == moodOptions.mood,
+        onClick = {
+                  setSelected(moodOptions.mood)
+        },
+        enabled = true
     )
 }
 
 @Preview
 @Composable
 fun PreviewRadioButton() {
-    RadioButton(selected = true){}
+    RadioButton(MoodOptions.NEUTRAL, "",{})
 }
 
 
 @Composable
 fun QuizCard(
-    emoji:String,
-    mood:String
+    moodOptions: MoodOptions
 ) {
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -67,15 +68,15 @@ fun QuizCard(
             contentAlignment = Alignment.CenterStart
         ){
             Text(
-                text = emoji,
+                text = moodOptions.emoji,
                 modifier = Modifier
                     .scale(1.5f)
             )
             Text(
-                text = mood,
+                text = moodOptions.mood,
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
+                    fontSize = 18.sp
                 ),
                 modifier = Modifier.padding(start = 30.dp))
         }
@@ -87,26 +88,24 @@ fun QuizCard(
 @Preview
 @Composable
 fun PreviewQuizCard() {
-    QuizCard("\uD83D\uDE10", "neutral")
+    QuizCard(MoodOptions.HAPPY)
 }
 
 
 @Composable
 fun QuizSheet(
-    emoji:String,
-    mood:String,
-    onClick: () -> Unit,
-    selected: Boolean,
-    enabled: Boolean
+    MoodOptions: MoodOptions,
+    selected: String,
+    setSelected: (selected: String) -> Unit
 ) {
 
     Box {
-        QuizCard(emoji,mood)
+        QuizCard(MoodOptions)
         Box(modifier = Modifier
             .align(Alignment.CenterEnd)
             .padding(end = 10.dp)
         ){
-            RadioButton{}
+            RadioButton(MoodOptions,selected, setSelected)
         }
     }
 }
@@ -114,22 +113,21 @@ fun QuizSheet(
 @Preview
 @Composable
 fun PreviewQuizSheet() {
-    QuizSheet("\uD83D\uDE10", "neutral", {}, false, true)
+    QuizSheet(MoodOptions.HAPPY,"", {})
 }
 
 
 @Composable
 fun FullQuiz(
-    onClick: () -> Unit,
-    selected: Boolean,
-    enabled: Boolean
+    selected: String,
+    setSelected: (selected: String) -> Unit
 ) {
     Box(/*modifier = Modifier.padding(bottom = 20.dp)*/){//TODO Vielleicht noch das padding ändern
         BoxWithShadow(250,192,247,172,255)
         Column() {
-            QuizSheet("\uD83D\uDE41", "sad", onClick, selected,enabled)
-            QuizSheet("\uD83D\uDE10", "neutral",onClick, selected,enabled)
-            QuizSheet("\uD83D\uDE42", "happy",onClick, selected, enabled)
+            MoodOptions.values().forEach {mood ->
+                QuizSheet(mood,selected, setSelected)
+            }
         }
     }
 }
