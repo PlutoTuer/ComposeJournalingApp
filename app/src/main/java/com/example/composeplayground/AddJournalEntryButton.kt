@@ -20,8 +20,8 @@ fun AddJournalEntryButton(onComplete: () -> Unit) {
             .fillMaxWidth()
             .wrapContentHeight()
             .border(width = 1.dp, color = Color.Black)
-            .background(color = Color(71, 206, 71, 255)),
-        colors = ButtonDefaults.buttonColors(Color(71, 206, 71, 255)),
+            .background(color = Color(102, 80, 163, 255)),
+        colors = ButtonDefaults.buttonColors(Color(102, 80, 163, 255)),
         onClick = { onComplete() }
     ) {
         Text(text = "Complete")

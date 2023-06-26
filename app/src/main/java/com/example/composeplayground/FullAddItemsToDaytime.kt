@@ -20,9 +20,9 @@ val item = FullItem()
 @Composable
 fun FullAddItemsToDaytime(isButtonPressed: () -> Unit, userInput:String, onValueChange: (String) -> Unit) {
 
-    Box(modifier = Modifier.padding(top = 10.dp)){
+    Box(modifier = Modifier.padding(top = 2.dp)){
 
-        BoxWithShadow(160, 166,200,200,255)
+        //BoxWithShadow(160, 166,200,200,255)
 
         Column {
 
