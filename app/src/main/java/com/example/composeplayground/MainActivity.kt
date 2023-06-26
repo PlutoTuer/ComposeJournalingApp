@@ -1,9 +1,11 @@
 package com.example.composeplayground
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,10 +18,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.composeplayground.ui.theme.ComposePlaygroundTheme
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Locale
 
 //Journal App
 var completedDay = CompletedDay()
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MutableCollectionMutableState")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,8 +107,17 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
+                        //val dateTime = Calendar.getInstance().time
+                        val currentDateTime: LocalDateTime = LocalDateTime.now()
+                        val dayTime = LocalDateTime.parse(currentDateTime.toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
+                        //val dayOfWeek = dayTime.format(DateTimeFormatter.ofPattern("EEEE", Locale.getDefault()))
+                        //val dayOfMonth = dayTime.format(DateTimeFormatter.ofPattern("dd"))
+                        //val month = dayTime.format(DateTimeFormatter.ofPattern("MMMM", Locale.getDefault()))
+                        //val year = dayTime.year
+
                         Box{
-                            FullTitleCard()
+                            FullTitleCard(dayTime)
                         }
                         FullAddItemsToDaytime(isButtonPressed, userInput, onValueChange)
                         Spacer(modifier = Modifier.weight(0.1F))
@@ -132,7 +148,7 @@ class MainActivity : ComponentActivity() {
                             ){
                                 println("OnComplete")
                                 completedDay = CompletedDay(
-                                    date = "01-06-23",
+                                    date = dayTime.toString(),
                                     morning = itemsListMorning,
                                     midDay = itemsListMidDay,
                                     evening = itemsListEvening,
