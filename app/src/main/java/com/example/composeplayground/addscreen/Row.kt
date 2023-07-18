@@ -1,4 +1,4 @@
-package com.example.composeplayground
+package com.example.composeplayground.addscreen
 
 data class Row(
     var daytime:Int,

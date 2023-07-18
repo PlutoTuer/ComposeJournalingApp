@@ -1,4 +1,4 @@
-package com.example.composeplayground
+package com.example.composeplayground.addscreen
 
 enum class MoodOptions(val emoji:String, val mood:String) {
     SAD("\uD83D\uDE41", "sad"),

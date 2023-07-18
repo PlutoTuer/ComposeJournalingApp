@@ -1,4 +1,4 @@
-package com.example.composeplayground
+package com.example.composeplayground.addscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AddJournalEntryButton(onComplete: () -> Unit) {
+fun AddJournalEntryButton(onComplete: () -> Unit, text: String) {
     Button(
         modifier = Modifier
             .fillMaxWidth()
@@ -24,12 +24,12 @@ fun AddJournalEntryButton(onComplete: () -> Unit) {
         colors = ButtonDefaults.buttonColors(Color(102, 80, 163, 255)),
         onClick = { onComplete() }
     ) {
-        Text(text = "Complete")
+        Text(text = text)
     }
 }
 
 @Preview
 @Composable
 fun PreviewAddJournalEntryButton() {
-    AddJournalEntryButton({})
+    AddJournalEntryButton({}, "")
 }

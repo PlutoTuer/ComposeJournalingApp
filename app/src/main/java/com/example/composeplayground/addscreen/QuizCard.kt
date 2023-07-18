@@ -1,4 +1,4 @@
-package com.example.composeplayground
+package com.example.composeplayground.addscreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -119,7 +119,7 @@ fun FullQuiz(
     Box(/*modifier = Modifier.padding(bottom = 20.dp)*/){//TODO Vielleicht noch das padding ändern
         //BoxWithShadow(250,192,247,172,255)
         Column() {
-            MoodOptions.values().forEach {mood ->
+            MoodOptions.values().forEach { mood ->
                 QuizSheet(mood,selected, setSelected)
             }
         }
