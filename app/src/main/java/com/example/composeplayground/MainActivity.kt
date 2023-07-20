@@ -7,18 +7,12 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,9 +21,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.example.composeplayground.addscreen.AddJournalEntryButton
 import com.example.composeplayground.addscreen.CompletedDay
 import com.example.composeplayground.addscreen.DaytimeTable
@@ -42,12 +35,11 @@ import com.example.composeplayground.addscreen.row1
 import com.example.composeplayground.addscreen.row2
 import com.example.composeplayground.addscreen.row3
 import com.example.composeplayground.evaluatingalgorithm.evaluationAlgorithm
-import com.example.composeplayground.evaluatingalgorithm.evaluationAlgorithm
 import com.example.composeplayground.mainscreen.InfoBox
 import com.example.composeplayground.mainscreen.MoodChart
-import com.example.composeplayground.mainscreen.SearchDateInput
 import com.example.composeplayground.mainscreen.UserGreeting
 import com.example.composeplayground.ui.theme.ComposePlaygroundTheme
+import com.example.composeplayground.mainscreen.CalendarDatePicker
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -216,6 +208,7 @@ fun AddScreen(onClick: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(onClick: () -> Unit) {
@@ -279,11 +272,11 @@ fun MainScreen(onClick: () -> Unit) {
         InfoBox()
 
         val currentDateTime: LocalDateTime = LocalDateTime.now()
-        Log.d("DATE", "$currentDateTime");
+        Log.d("DATE", "$currentDateTime")
 
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val date = currentDateTime.format(formatter)
-        Log.d("DAYTIME", date);
+        Log.d("DAYTIME", date)
 
         if (completedDays.size > 7){
             completedDays.removeFirst()
@@ -318,35 +311,50 @@ fun MainScreen(onClick: () -> Unit) {
 
         MoodChart(chartEntryModel = chartEntryModel)
         Spacer(modifier = Modifier.weight(0.1f))
-        Row() {
-            SearchDateInput()
-            SearchDateInput()
-            SearchDateInput()
+        var selectedDate by remember { mutableStateOf("") }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+    
+            CalendarDatePicker( {
+                selectedDate = it
+            })
+            Text(text = selectedDate)
         }
+        Spacer(modifier = Modifier.weight(0.1f))
+
+        //Row(modifier = Modifier
+        //    .padding(start = 12.dp, end = 12.dp)) {
+        //    SearchDateInput("DD")
+        //    Spacer(modifier = Modifier.weight(0.1f))
+        //    SearchDateInput("MM")
+        //    Spacer(modifier = Modifier.weight(0.1f))
+        //    SearchDateInput("YYYY")
+        //}
         AddJournalEntryButton(onClick, "Create Journal Entry")
     }
 }
-fun checkIfEmpty(vararg items:Any?):Boolean{
-
-    var isEmpty = true
-
-    for (i in items){
-        when(i){
-
-            is String -> if (i.isEmpty()) break
-            is Int? -> if (i == null) break
-            is Double? -> if (i == null) break
-            is Boolean? -> if (i == null) break
-            is List<*> -> if (i.size == 0) break
-            is Map<*, *> -> if (i.isEmpty()) break
-            is Set<*> -> if (i.isEmpty()) break
-            is Char -> if (i.isWhitespace()) break
-            else -> isEmpty = false
-
-        }
-    }
-    println(isEmpty)
-    return isEmpty
-}
+//fun checkIfEmpty(vararg items:Any?):Boolean{
+//
+//    var isEmpty = true
+//
+//    for (i in items){
+//        when(i){
+//
+//            is String -> if (i.isEmpty()) break
+//            is Int? -> if (i == null) break
+//            is Double? -> if (i == null) break
+//            is Boolean? -> if (i == null) break
+//            is List<*> -> if (i.size == 0) break
+//            is Map<*, *> -> if (i.isEmpty()) break
+//            is Set<*> -> if (i.isEmpty()) break
+//            is Char -> if (i.isWhitespace()) break
+//            else -> isEmpty = false
+//
+//        }
+//    }
+//    println(isEmpty)
+//    return isEmpty
+//}
 
 
