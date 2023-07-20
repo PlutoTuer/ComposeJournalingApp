@@ -41,6 +41,8 @@ import com.example.composeplayground.addscreen.item
 import com.example.composeplayground.addscreen.row1
 import com.example.composeplayground.addscreen.row2
 import com.example.composeplayground.addscreen.row3
+import com.example.composeplayground.evaluatingalgorithm.evaluationAlgorithm
+import com.example.composeplayground.evaluatingalgorithm.evaluationAlgorithm
 import com.example.composeplayground.mainscreen.InfoBox
 import com.example.composeplayground.mainscreen.MoodChart
 import com.example.composeplayground.mainscreen.SearchDateInput
@@ -71,6 +73,7 @@ class MainActivity : ComponentActivity() {
                         AddScreen(onClick)
                     }
                     else{
+                        evaluationAlgorithm()
                         MainScreen(onClick)
                     }
 
@@ -216,7 +219,7 @@ fun AddScreen(onClick: () -> Unit) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(onClick: () -> Unit) {
-    completedDays.addAll(
+    /*completedDays.addAll(
         listOf(
             CompletedDay(
                 date = "2023-06-28",
@@ -268,7 +271,7 @@ fun MainScreen(onClick: () -> Unit) {
                 mood = "happy"
             )
         )
-    )
+    )*/
     Column {
         UserGreeting(username = "Jonas")
         Spacer(modifier = Modifier.weight(0.1f))
