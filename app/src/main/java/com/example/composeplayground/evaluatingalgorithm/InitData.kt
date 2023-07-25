@@ -53,13 +53,6 @@ fun initData(completedDays:MutableList<CompletedDay>){
                 midDay   = listOf("worked", "dance"),
                 evening = listOf("reading"),
                 mood = "neutral"
-            ),
-            CompletedDay(
-                date = "2023-07-13",
-                morning = listOf("work", "taxes"),
-                midDay   = listOf("WORK", "CookiNG"),
-                evening = listOf("homework"),
-                mood = "sad"
             )
         )
     )

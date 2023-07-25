@@ -60,7 +60,7 @@ fun CalendarDatePicker(getDate: (String)->Unit){
     val mDatePickerDialog = datePickerDialog
 
     Column(
-        modifier = Modifier.size(300.dp, 150.dp),
+        //modifier = Modifier.size(300.dp, 150.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
